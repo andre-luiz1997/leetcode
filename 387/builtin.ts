@@ -1,3 +1,5 @@
+// First Unique Character On A String
+// https://leetcode.com/problems/first-unique-character-in-a-string/description/
 
 // SOLUTION USING INDEXES -- SIMPLER BUT LAST EFFECTIVE
 // export function firstUniqueCharacterOnAStringBuiltin387(s: string) {
