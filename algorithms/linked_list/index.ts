@@ -1,26 +1,66 @@
-import { ListNode } from "../doubly_linked_list/index";
+import { mergeSort } from "../merge_sort/linked_list";
 
-class LinkedList<T> {
+export class ListNode<T> {
+  public value: T;
+  public next?: ListNode<T>;
+  public previous?: ListNode<T>;
+
+
+  constructor(value: T) {
+    this.value = value;
+  }
+}
+
+export class LinkedList<T> {
   private head?: ListNode<T>;
   private tail?: ListNode<T>;
   public length = 0;
 
+  constructor(values?: Array<T>) {
+    if (values) {
+      values.forEach(value => this.push(value))
+    }
+  }
+
+  mergeSort() {
+    this.head = mergeSort(this.head);
+    let node = this.head;
+    while (node?.next) {
+      node = node?.next;
+    }
+    this.tail = node;
+  }
+
+  getHead() {
+    return this.head;
+  }
+
+  getMiddle() {
+    let slow = this.head;
+    let fast = this.head;
+    while (slow?.next && fast?.next?.next) {
+      slow = slow?.next;
+      fast = fast?.next.next;
+    }
+    return slow;
+  }
+
   unshift(value: T) {
     const node = new ListNode<T>(value);
-    if(this.head) {
+    if (this.head) {
       node.next = this.head;
     }
-    if(!this.tail) this.tail = node;
+    if (!this.tail) this.tail = node;
     this.head = node;
     this.length++;
   }
 
   push(value: T) {
     const node = new ListNode<T>(value);
-    if(this.tail) {
+    if (this.tail) {
       this.tail.next = node;
     }
-    if(!this.head) {
+    if (!this.head) {
       this.head = node;
     }
     this.tail = node;
@@ -28,16 +68,16 @@ class LinkedList<T> {
   }
 
   pop() {
-    if(!this.tail || !this.head) return;
+    if (!this.tail || !this.head) return;
     let node = this.head;
     let prevNode: ListNode<T> | undefined;
     do {
-      if(node?.next) {
+      if (node?.next) {
         prevNode = node;
         node = node?.next;
       }
-    } while(node?.next && node?.next != this.tail);
-    if(prevNode) {
+    } while (node?.next && node?.next != this.tail);
+    if (prevNode) {
       this.tail = prevNode;
       prevNode.next = undefined;
     }
@@ -46,7 +86,7 @@ class LinkedList<T> {
   }
 
   shift() {
-    if(!this.head) return;
+    if (!this.head) return;
     const node = this.head;
     this.head = node.next;
     this.length--;
@@ -54,8 +94,8 @@ class LinkedList<T> {
   }
 
   invert() {
-    let newList: ListNode<T> | undefined; 
-    while(this.head) {
+    let newList: ListNode<T> | undefined;
+    while (this.head) {
       const nextNode = this.head.next;
       this.head.next = newList;
       newList = nextNode;
@@ -76,11 +116,9 @@ class LinkedList<T> {
 }
 
 const ll = new LinkedList<number>();
-ll.push(0) 
-ll.push(1) 
-ll.push(2) 
-ll.push(3) 
-ll.push(4) 
-console.log(ll.toArray()); 
+ll.push(0)
+ll.push(1)
+ll.push(2)
+ll.push(3)
+ll.push(4)
 ll.invert()
-console.log(ll.toArray())
