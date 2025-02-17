@@ -1,14 +1,14 @@
 class TreeNode {
   value: number;
-  leftNode?: TreeNode;
-  rightNode?: TreeNode;
+  leftNode: TreeNode | null = null;
+  rightNode: TreeNode | null = null;
   constructor(value: number) {
     this.value = value;
   }
 }
 
 class BinaryTree {
-  root?: TreeNode;
+  root: TreeNode | null = null;
 
   insert(value: number) {
     const node = new TreeNode(value);
@@ -38,7 +38,7 @@ class BinaryTree {
     return result;
   }
 
-  private xorderRecursive(method: 'preorder' | 'inorder' | 'postorder',result: number[], node?: TreeNode) {
+  private xorderRecursive(method: 'preorder' | 'inorder' | 'postorder',result: number[], node: TreeNode | null = null) {
     if (!node) return;
     switch (method) {
       case 'preorder':
@@ -59,7 +59,7 @@ class BinaryTree {
     }
   }
 
-  private searchRecursive(value: number, searchNode?: TreeNode): TreeNode | null {
+  private searchRecursive(value: number, searchNode: TreeNode | null): TreeNode | null {
     if (!searchNode) return null;
     if (searchNode.value == value) return searchNode;
     if (value > searchNode.value) return this.searchRecursive(value, searchNode.rightNode);
@@ -93,6 +93,6 @@ tree.insert(15);
 tree.insert(7);
 // console.log(tree.preorderTraversal());
 // console.log(tree.inorderTraversal());
-console.log(tree.postorderTraversal());
+// console.log(tree.postorderTraversal());
 // console.log(tree.search(2))
 // console.log(tree.search(7))
