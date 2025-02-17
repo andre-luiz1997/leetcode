@@ -1,4 +1,4 @@
-export class TreeNode {
+class TreeNode {
   value: number;
   leftNode: TreeNode | null = null;
   rightNode: TreeNode | null = null;
@@ -7,7 +7,7 @@ export class TreeNode {
   }
 }
 
-export class BinaryTree {
+class BinaryTree {
   root: TreeNode | null = null;
 
   constructor(values?: Array<number | null>) {
