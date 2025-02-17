@@ -20,7 +20,46 @@ class BinaryTree {
     return this.searchRecursive(value, this.root);
   }
 
-  private searchRecursive(value: number,searchNode?: TreeNode): TreeNode | null {
+  preorderTraversal() { //Root at the beginning of result
+    const result: number[] = []
+    this.xorderRecursive('preorder',result, this.root);
+    return result;
+  }
+
+  postorderTraversal() { //Root at the beginning of result
+    const result: number[] = []
+    this.xorderRecursive('postorder',result, this.root);
+    return result;
+  }
+
+  inorderTraversal() {
+    const result: number[] = []
+    this.xorderRecursive('inorder',result, this.root);
+    return result;
+  }
+
+  private xorderRecursive(method: 'preorder' | 'inorder' | 'postorder',result: number[], node?: TreeNode) {
+    if (!node) return;
+    switch (method) {
+      case 'preorder':
+        result.push(node?.value);
+        this.xorderRecursive(method,result, node.leftNode)
+        this.xorderRecursive(method,result, node.rightNode)
+        break;
+      case 'inorder':
+        this.xorderRecursive(method,result, node.leftNode)
+        result.push(node?.value);
+        this.xorderRecursive(method,result, node.rightNode)
+        break;
+      case 'postorder':
+        this.xorderRecursive(method,result, node.leftNode)
+        this.xorderRecursive(method,result, node.rightNode)
+        result.push(node?.value);
+        break;
+    }
+  }
+
+  private searchRecursive(value: number, searchNode?: TreeNode): TreeNode | null {
     if (!searchNode) return null;
     if (searchNode.value == value) return searchNode;
     if (value > searchNode.value) return this.searchRecursive(value, searchNode.rightNode);
@@ -46,11 +85,14 @@ class BinaryTree {
 }
 
 const tree = new BinaryTree();
-tree.insert(1);
-tree.insert(0);
-tree.insert(2);
 tree.insert(5);
 tree.insert(3);
-
-console.log(tree.search(2))
-console.log(tree.search(7))
+tree.insert(1);
+tree.insert(10);
+tree.insert(15);
+tree.insert(7);
+// console.log(tree.preorderTraversal());
+// console.log(tree.inorderTraversal());
+console.log(tree.postorderTraversal());
+// console.log(tree.search(2))
+// console.log(tree.search(7))
