@@ -1,4 +1,4 @@
-class TreeNode {
+export class TreeNode {
   value: number;
   leftNode: TreeNode | null = null;
   rightNode: TreeNode | null = null;
@@ -7,8 +7,32 @@ class TreeNode {
   }
 }
 
-class BinaryTree {
+export class BinaryTree {
   root: TreeNode | null = null;
+
+  constructor(values?: Array<number | null>) {
+    const value = values?.shift();
+    if (!values || value == null || value == undefined) return;
+    this.root = new TreeNode(value);
+    let dir: 'left' | 'right' = 'left';
+    let currNode = this.root;
+    for (let index = 0; index < values.length; index++) {
+      const element = values[index];
+      if (element === null) {
+        dir = dir == 'left' ? 'right' : 'left';
+        continue;
+      }
+      const node = new TreeNode(element);
+      if (dir == 'left') {
+        currNode.leftNode = node;
+        dir = 'right';
+      } else {
+        currNode.rightNode = node;
+        dir = 'left';
+        currNode = node;
+      }
+    }
+  }
 
   insert(value: number) {
     const node = new TreeNode(value);
@@ -31,8 +55,8 @@ class BinaryTree {
     while (queue.length > 0) {
       const elem = queue.shift();
       if (elem?.value == value) return elem;
-      if(elem?.leftNode) queue.push(elem.leftNode);
-      if(elem?.rightNode) queue.push(elem.rightNode);
+      if (elem?.leftNode) queue.push(elem.leftNode);
+      if (elem?.rightNode) queue.push(elem.rightNode);
     }
     return null;
   }
@@ -124,4 +148,4 @@ tree.insert(7);
 // console.log(tree.search(2))
 // console.log(tree.search(7))
 // console.log(tree.dfs(78))
-console.log(tree.bfs(15))
+// console.log(tree.bfs(15))
